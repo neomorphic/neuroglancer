@@ -586,7 +586,7 @@ export class ComputedVolumeChunk extends VolumeChunk implements ChunkStateListen
     const outputChunk = <ComputedVolumeChunk>chunk;
     this.computeChunkBounds(outputChunk);
     this.pendingComputations_.set(chunk.key!, outputChunk);
-    const promise = outputChunk.initializeComputation(this.computation.params, cancellationToken);
+    const promise: Promise<void> = outputChunk.initializeComputation(this.computation.params, cancellationToken);
     this.chunkManager.scheduleUpdateChunkPriorities();
     return promise;
   }
