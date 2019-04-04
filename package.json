@@ -3,7 +3,7 @@
   "description": "Visualization tool for 3-D volumetric data.",
   "license": "Apache-2.0",
   "version": "0.0.0-beta.0",
-  "main": "trans/main_module.js",
+  "main": "lib/main_module.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/google/neuroglancer.git"
@@ -14,7 +14,8 @@
   "scripts": {
     "generate-code": "node ./config/generate_code.js",
     "build-min": "webpack --config ./config/webpack.config.js --env=min && tsc --outDir ./lib && babel lib --out-dir trans",
-    "build": "webpack --config ./config/webpack.config.js --env=dev && tsc --outDir ./lib && babel lib --quiet --out-dir trans",
+    "_build": "webpack --config ./config/webpack.config.js --env=dev && tsc --outDir ./lib && babel lib --quiet --out-dir trans",
+    "build": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline --copy-files",
     "build-python": "webpack --config ./config/webpack.config.js --env=python-dev",
     "build-python-min": "webpack --config ./config/webpack.config.js --env=python-min",
     "build:watch": "webpack --config ./config/webpack.config.js --watch",
@@ -27,13 +28,18 @@
     "gulp": "gulp"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-decorators": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/polyfill": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
     "@types/jasmine": "^2.8.9",
-    "babel-cli": "^6.26.0",
-    "babel-plugin-import-noop": "^1.0.1",
     "babel-plugin-module-resolver": "^3.2.0",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
     "benchmark": "^2.1.4",
     "clang-format": "^1.2.4",
     "copy-webpack-plugin": "^4.6.0",

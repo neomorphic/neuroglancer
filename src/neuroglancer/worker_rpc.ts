@@ -100,7 +100,8 @@ const INITIAL_RPC_ID = IS_WORKER ? -1 : 0;
 export class RPC {
   private objects = new Map<RpcId, any>();
   private nextId: RpcId = INITIAL_RPC_ID;
-  constructor(public target: RPCTarget) {
+  public target: RPCTarget;
+  constructor(target: RPCTarget) {
     target.onmessage = (e) => {
       let data = e.data;
       if (DEBUG_MESSAGES) {
@@ -108,6 +109,7 @@ export class RPC {
       }
       handlers.get(data.functionName)!.call(this, data);
     };
+    this.target = target;
   }
 
   get numObjects() {

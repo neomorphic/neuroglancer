@@ -112,7 +112,13 @@ export interface DataSource {
 }
 
 export class DataSource extends RefCounted {
-  description?: string;
+  description: string;
+  constructor(desc?: string) {
+    super();
+    if (desc) {
+      this.description = desc;
+    }
+  }
 }
 
 const protocolPattern = /^(?:([a-zA-Z][a-zA-Z0-9-+_]*):\/\/)?(.*)$/;

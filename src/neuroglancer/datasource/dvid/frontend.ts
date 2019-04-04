@@ -512,9 +512,7 @@ export function volumeCompleter(
 }
 
 export class DVIDDataSource extends DataSource {
-  get description() {
-    return 'DVID';
-  }
+  public description: 'DVID';
 
   getVolume(chunkManager: ChunkManager, url: string) {
     return getVolume(chunkManager, url);

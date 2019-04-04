@@ -1,22 +1,17 @@
 {
   "presets": [
-    ["env", {
-      "targets": {
-        // The % refers to the global coverage of users from browserslist
-        "browsers": [ ">0.25%", "not ie 11", "not op_mini all"]
-      },
-      "modules": false,
-    }]
+    "@babel/typescript",
+    "@babel/env",
+    "@babel/preset-react"
   ],
   "plugins": [
     ["module-resolver", {
-      "root": ["./lib"],
-       "extensions": [".js", ".jsx", ".es", ".es6", ".mjs", ".glsl"]
+      "root": ["./src"],
+      "extensions": [".ts", ".tsx", ".js", ".jsx", ".es", ".es6", ".mjs", ".glsl"]
     }],
-    ["import-noop", {
-      "extensions": ["css"]
-    }],
-    ["transform-runtime"],
-    ["syntax-dynamic-import"]
+    "@babel/proposal-object-rest-spread",
+    ["@babel/plugin-syntax-dynamic-import"],
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose" : true }]
   ]
 }

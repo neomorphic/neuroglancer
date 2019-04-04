@@ -775,6 +775,7 @@ export class NavigationState extends RefCounted {
       public pose: Owned<Pose> = new Pose(),
       zoomFactor: number|Owned<TrackableZoomState> = Number.NaN) {
     super();
+    this.pose = pose;
     if (typeof zoomFactor === 'number') {
       this.zoomFactor = new TrackableZoomState(zoomFactor);
     } else {

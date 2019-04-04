@@ -69,6 +69,7 @@ export class ChunkQueueManager extends SharedObject {
   visibleChunksChanged = new NullarySignal();
   pendingChunkUpdates: any = null;
   pendingChunkUpdatesTail: any = null;
+  capacities: any = null;
 
   /**
    * If non-null, deadline in milliseconds since epoch after which chunk copies to the GPU may not
@@ -78,7 +79,7 @@ export class ChunkQueueManager extends SharedObject {
 
   chunkUpdateDelay: number = 30;
 
-  constructor(rpc: RPC, public gl: GL, public capacities: {
+  constructor(rpc: RPC, public gl: GL, capacities: {
     gpuMemory: CapacitySpecification,
     systemMemory: CapacitySpecification,
     download: CapacitySpecification,

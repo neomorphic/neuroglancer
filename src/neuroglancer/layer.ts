@@ -195,6 +195,7 @@ export class ManagedUserLayer extends RefCounted {
   specificationChanged = new NullarySignal();
   wasDisposed = false;
   private layer_: UserLayer|null = null;
+  public visible: boolean;
   get layer() {
     return this.layer_;
   }
@@ -245,10 +246,11 @@ export class ManagedUserLayer extends RefCounted {
   /**
    * If layer is not null, tranfers ownership of a reference.
    */
-  constructor(name: string, layer: UserLayer|null = null, public visible: boolean = true) {
+  constructor(name: string, layer: UserLayer|null = null, visible: boolean = true) {
     super();
     this.name_ = name;
     this.layer = layer;
+    this.visible = visible;
   }
 
   private handleLayerChanged() {

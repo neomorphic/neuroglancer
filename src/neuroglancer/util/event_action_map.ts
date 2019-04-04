@@ -94,7 +94,7 @@ export interface EventAction {
 export type EventActionMapInterface =
     HierarchicalMapInterface<NormalizedEventIdentifier, EventAction>;
 
-export const enum Modifiers {
+export enum Modifiers {
   CONTROL = 1,
   ALT = 2,
   META = 4,

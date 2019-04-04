@@ -23,12 +23,20 @@ import {GL, initializeWebGL} from 'neuroglancer/webgl/context';
 
 export abstract class RenderedPanel extends RefCounted {
   gl: GL;
+  public context: DisplayContext;
+  public element: HTMLElement;
+  public visibility: WatchableVisibilityPriority;
+
   constructor(
-      public context: DisplayContext, public element: HTMLElement,
-      public visibility: WatchableVisibilityPriority) {
+      context: DisplayContext,
+      element: HTMLElement,
+      visibility: WatchableVisibilityPriority) {
     super();
     this.gl = context.gl;
     context.addPanel(this);
+    this.context = context;
+    this.element = element;
+    this.visibility = visibility;
   }
 
   scheduleRedraw() {
@@ -96,6 +104,7 @@ export class DisplayContext extends RefCounted {
     container.appendChild(canvas);
     this.gl = initializeWebGL(canvas);
     this.registerEventListener(window, 'resize', this.onResize.bind(this));
+    this.container = container;
   }
 
   isReady() {
