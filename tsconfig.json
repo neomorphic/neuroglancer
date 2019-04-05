@@ -11,6 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "moduleResolution": "node",
+    "isolatedModules": true,
     "module": "es2015",
     "target": "ES2015",
     "newLine": "LF",
