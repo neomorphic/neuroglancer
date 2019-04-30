@@ -32,8 +32,8 @@ import {getWheelZoomAmount} from 'neuroglancer/util/wheel_zoom';
 import {ViewerState} from 'neuroglancer/viewer_state';
 
 
-require('./rendered_data_panel.css');
-require('neuroglancer/noselect.css');
+import './rendered_data_panel.css';
+import 'neuroglancer/noselect.css';
 
 const tempVec3 = vec3.create();
 

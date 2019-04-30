@@ -55,9 +55,9 @@ import {TrackableScaleBarOptions} from 'neuroglancer/widget/scale_bar';
 import {makeTextIconButton} from 'neuroglancer/widget/text_icon_button';
 import {RPC} from 'neuroglancer/worker_rpc';
 
-require('./viewer.css');
-require('neuroglancer/noselect.css');
-require('neuroglancer/ui/button.css');
+import './viewer.css';
+import'neuroglancer/noselect.css';
+import 'neuroglancer/ui/button.css';
 
 export class DataManagementContext extends RefCounted {
   worker = new Worker('chunk_worker.bundle.js');
