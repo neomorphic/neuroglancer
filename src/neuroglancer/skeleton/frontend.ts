@@ -33,8 +33,9 @@ import {Buffer} from 'neuroglancer/webgl/buffer';
 import {GL} from 'neuroglancer/webgl/context';
 import {WatchableShaderError} from 'neuroglancer/webgl/dynamic_shader';
 import {ShaderBuilder, ShaderModule, ShaderProgram} from 'neuroglancer/webgl/shader';
+import {colormaps} from 'neuroglancer/webgl/colormaps';
 
-const glsl_COLORMAPS = require<string>('neuroglancer/webgl/colormaps.glsl');
+const glsl_COLORMAPS = colormaps();
 
 const tempMat2 = mat4.create();
 
