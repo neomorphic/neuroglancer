@@ -158,7 +158,10 @@ function getBaseConfig(options) {
     module: {
       rules: [
         tsLoaderEntry,
-        {test: /\.css$/, loader: 'style-loader!css-loader'},
+        {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader'})
+        },
         {
           test: /\.glsl$/,
           loader: [
@@ -296,11 +299,13 @@ function getViewerConfig(options) {
     Object.assign(
         {
           mode: minify ? 'production' : 'development',
-          entry:
-              {'main': [...frontendDataSourceModules, ...frontendLayerModules, ...frontendModules]},
+          entry: {
+            'main': [...frontendDataSourceModules, ...frontendLayerModules, ...frontendModules]
+          },
           target: 'web',
           plugins: [
             htmlPlugin,
+						new ExtractTextPlugin({filename: 'styles.css', allChunks: true}),
             new webpack.DefinePlugin(Object.assign({}, defaultDefines, extraDefines)),
             ...extraFrontendPlugins,
             ...commonPlugins,
