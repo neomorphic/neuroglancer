@@ -19,7 +19,8 @@ import {Chunk, ChunkManager, ChunkSource} from 'neuroglancer/chunk_manager/front
 import {RenderLayer} from 'neuroglancer/layer';
 import {VoxelSize} from 'neuroglancer/navigation_state';
 import {PerspectiveViewRenderContext, PerspectiveViewRenderLayer} from 'neuroglancer/perspective_view/render_layer';
-import {forEachSegmentToDraw, getObjectColor, registerRedrawWhenSegmentationDisplayState3DChanged, SegmentationDisplayState3D, SegmentationLayerSharedObject} from 'neuroglancer/segmentation_display_state/frontend';
+import {forEachVisibleSegment, getObjectKey} from 'neuroglancer/segmentation_display_state/base';
+import {getObjectColor, registerRedrawWhenSegmentationDisplayState3DChanged, SegmentationDisplayState3D, SegmentationLayerSharedObject} from 'neuroglancer/segmentation_display_state/frontend';
 import {SKELETON_LAYER_RPC_ID, VertexAttributeInfo} from 'neuroglancer/skeleton/base';
 import {SliceViewPanelRenderContext, SliceViewPanelRenderLayer} from 'neuroglancer/sliceview/panel';
 import {TrackableValue} from 'neuroglancer/trackable_value';
@@ -138,8 +139,9 @@ void emitDefault() {
       const info = vertexAttributes[i];
       skeletonChunk.vertexBuffer.bindToVertexAttrib(
           shader.attribute(`aVertex${i}`),
-          /*components=*/info.numComponents, info.webglDataType, /*normalized=*/false, /*stride=*/0,
-          /*offset=*/vertexAttributeOffsets[i]);
+          /*components=*/ info.numComponents, info.webglDataType, /*normalized=*/ false,
+          /*stride=*/ 0,
+          /*offset=*/ vertexAttributeOffsets[i]);
     }
     skeletonChunk.indexBuffer.bind();
     gl.drawElements(gl.LINES, skeletonChunk.numIndices, gl.UNSIGNED_INT, 0);
@@ -266,8 +268,11 @@ export class SkeletonLayer extends RefCounted {
 
     gl.lineWidth(lineWidth);
 
-    forEachSegmentToDraw(displayState, skeletons, (rootObjectId, objectId, skeleton) => {
-      if (skeleton.state !== ChunkState.GPU_MEMORY) {
+    forEachVisibleSegment(displayState, (objectId, rootObjectId) => {
+      const key = getObjectKey(objectId);
+      const skeleton = skeletons.get(key);
+
+      if (skeleton === undefined || skeleton.state !== ChunkState.GPU_MEMORY) {
         return;
       }
       if (renderContext.emitColor) {

@@ -188,6 +188,9 @@ function getBaseConfig(options) {
       ],
     },
     node: {'Buffer': false},
+    optimization: {
+      splitChunks: false,
+    },
   };
   if (!options.noOutput) {
     if (options.outputPath === undefined) {
